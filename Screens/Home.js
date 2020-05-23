@@ -13,7 +13,7 @@ import googleCloudConfig from "../GoogleCloudConfig";
 import * as ImagePicker from 'expo-image-picker';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
-import { FontAwesome, Ionicons,MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome, Ionicons,MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import AnimalList from "../Components/AnimalList"; 
 
 class Home extends Component {
@@ -55,6 +55,10 @@ class Home extends Component {
 
     launchCamera = () => {
         this.setState({launchCamera: true});
+    };
+
+    closeCamera = () => {
+        this.setState({launchCamera: false});
     };
 
     openImagePickerAsync = async () => {
@@ -175,6 +179,16 @@ class Home extends Component {
                     <Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {
                         this.camera = ref;
                     }}>
+                        <View style={{flex:1, flexDirection:"row",justifyContent:"flex-start",marginTop:40, marginLeft:20}}>
+                            <TouchableOpacity
+                                style={{
+                                    alignSelf: 'flex-start',
+                                    alignItems: 'flex-start',
+                                    backgroundColor: 'transparent',
+                                }} onPress={this.closeCamera}>
+                                <AntDesign name="close" size={40} color="#fff" />
+                            </TouchableOpacity>
+                        </View>
                         <View style={{flex:1, flexDirection:"row",justifyContent:"space-between",margin:20}}>
                             <TouchableOpacity
                                 style={{

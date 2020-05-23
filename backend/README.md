@@ -7,7 +7,7 @@ Uses serverless framework for catcimals BE
 ## Get Started 
 ### install dependencies
 ```
-$ npm i
+$ npm i -g serverless
 ```
 
 ### deploy

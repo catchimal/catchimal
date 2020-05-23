@@ -1,6 +1,6 @@
 import Login from "./Login";
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
+import {createStackNavigator} from "react-navigation-stack";
+import {createAppContainer} from "react-navigation";
 import Home from "./Home";
 
 const AppNavigator = createStackNavigator({

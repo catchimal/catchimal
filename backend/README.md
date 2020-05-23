@@ -14,3 +14,9 @@ $ npm i
 ```
 $ serverless deploy
 ```
+
+
+### Try it
+```
+$ npm start
+```

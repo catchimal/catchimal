@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
+    "module": "commonjs"
   },
   "include": [
     "src/**/*.ts"
@@ -10,6 +10,6 @@
     "node_modules"
   ],
   "types": [
-    "node",
+    "node"
   ]
 }

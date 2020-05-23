@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 import currentUserReducer from "./currentUserReducer";
 
 const allReducers = combineReducers({

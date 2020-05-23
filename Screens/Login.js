@@ -27,20 +27,25 @@ class Login extends Component {
                 }); //after Google login redirect to Home
                 return result.accessToken;
             } else {
-                return { cancelled: true };
+                return {cancelled: true};
             }
         } catch (e) {
             console.log('Error with login', e);
-            return { error: true };
+            return {error: true};
         }
     };
 
     render() {
         return (
-            <View style={styles.container}>
-                <Button title="Login with Google" onPress={this.signInWithGoogle} />
-            </View>
-        );
+            < View
+        style = {styles.container} >
+            < Button
+        title = "Login with Google"
+        onPress = {this.signInWithGoogle}
+        />
+        < /View>
+    )
+        ;
     }
 }
 

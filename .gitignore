@@ -586,3 +586,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/node,macos,python,windows,intellij,reactnative
+.idea/discord.xml
+.idea/misc.xml

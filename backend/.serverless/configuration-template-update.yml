@@ -1,0 +1,17 @@
+resources:
+  - type: storage.v1.bucket
+    name: sls-cachimal-dev-1590255065687
+  - type: 'gcp-types/cloudfunctions-v1:projects.locations.functions'
+    name: cachimal-dev-first
+    properties:
+      parent: projects/helical-zone-277505/locations/us-central1
+      availableMemoryMb: 256
+      runtime: nodejs10
+      timeout: 60s
+      entryPoint: test
+      function: cachimal-dev-first
+      sourceArchiveUrl: >-
+        gs://sls-cachimal-dev-1590255065687/serverless/cachimal/dev/1590257181378-2020-05-23T18:06:21.378Z/cachimal.zip
+      labels: {}
+      httpsTrigger:
+        url: heartbeat

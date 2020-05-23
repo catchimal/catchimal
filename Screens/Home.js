@@ -8,6 +8,8 @@ import {RaisedTextButton} from 'react-native-material-buttons';
 import * as Google from "expo-google-app-auth";
 import googleCloudConfig from "../GoogleCloudConfig";
 
+import AnimalList from "../Components/AnimalList"; 
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -34,6 +36,8 @@ class Home extends Component {
     render() {
         return (
             <View style={styles.container}>
+                {/* <AnimalList title="tiger"/> */}
+
                 <Text> Home Screen </Text>
                 <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
                     Welcome, {this.props.navigation.getParam('username')}

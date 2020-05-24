@@ -9,6 +9,11 @@ expo start
 # Links
 ## Web - https://catchimal.space
 ## Mobile - https://expo.io/@iamrutvik/catchimal
+( 
+  Android : Scan the qr code using the expo app ! Thats it :)
+  iOS : Little pain has to be taken , because Steve had a quarrel with Expo ! Code has to be cloned locally into the system 
+  and then following the above steps , it would be working on your iPhone in no time !
+)
 ## Submission for MLH Backyard Hacks - https://devpost.com/software/catchimal
 
 ## Main objective of Catchimal

@@ -1,182 +1,120 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import {
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-  FlatList,
-  Switch,
-  ActivityIndicator,
+    StyleSheet,
+    View,
+    ActivityIndicator, StatusBar, ScrollView, TouchableOpacity, Text
 } from "react-native";
-import Card from "./Card";
+import ActionBar from "./ActionBar";
+import * as _ from 'lodash';
 
-function AnimalList(props) {
+let animalList = (props) => {
 
-  let { title,keyword } = props;
-  const key = "AIzaSyA82k47jl8BCHoJ07am-8UHSUxq2zFlmT0";
-  const [isEnabled, setIsEnabled] = useState(false);
-  const [details,setDetails] = useState("Its an animal !");
- 
+  let [ facts, setFacts ] = useState([]);
 
-   useEffect(async () => {
+  let getCatFacts = async () => {
     let response = await fetch(
-      'https://customsearch.googleapis.com/customsearch/v1?q=' +
-      keyword +
-      '&key='+
-      key,
-      {
+        'https://cat-fact.herokuapp.com/facts',
+        {
           headers: {
-              Accept: 'application/json',
+            Accept: 'application/json',
           },
           method: 'GET',
-      }
-  );
+        }
+    );
     let responseJson = await response.json();
-    console.log(responseJson);
-
-    let result = "lol"
-    setDetails(result);
-  },[])
-
-  let data = [
-    {
-      albumId: 1,
-      id: 1,
-      title: "accusamus beatae ad facilis cum similique qui sunt",
-      url: "https://via.placeholder.com/600/92c952",
-      thumbnailUrl: "https://via.placeholder.com/150/92c952",
-    },
-    {
-      albumId: 1,
-      id: 2,
-      title: "reprehenderit est deserunt velit ipsam",
-      url: "https://via.placeholder.com/600/771796",
-      thumbnailUrl: "https://via.placeholder.com/150/771796",
-    },
-    {
-      albumId: 1,
-      id: 3,
-      title: "officia porro iure quia iusto qui ipsa ut modi",
-      url: "https://via.placeholder.com/600/24f355",
-      thumbnailUrl: "https://via.placeholder.com/150/24f355",
-    },
-    {
-      albumId: 1,
-      id: 4,
-      title: "culpa odio esse rerum omnis laboriosam voluptate repudiandae",
-      url: "https://via.placeholder.com/600/d32776",
-      thumbnailUrl: "https://via.placeholder.com/150/d32776",
-    }
-  ];
-
-  const handleTouch = () => {};
-
-  const toggleSwitch = () => {
-    setIsEnabled(!isEnabled)
+    // take top 20
+    let topFacts = _.take(responseJson.all, 20);
+    setFacts(topFacts);
+    console.log(topFacts);
   };
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.topBar}>
-        <View style={styles.titleBar}>
-          <Text style={styles.textStyle}>{title}</Text>
-        </View>
-        <View>
-          <Switch
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
+  getCatFacts();
+
+  let catFacts = (<View>
+  </View>);
+  catFacts = facts.map((fact, index) => {
+      return (
+          <TouchableOpacity key={index} style={styles.factsContainer}>
+              <View key={index + 1} style={{
+                      height: 'auto',
+                      width: 'auto',
+                      margin: 10,
+                      padding: 10,
+                      borderRadius: 15,
+                  }}>
+                  <View style={styles.factView} key={index + 2}>
+                      <Text style={styles.factTextView} key={index + 3} numberOfLines={5}>
+                          {fact.text}
+                      </Text>
+                  </View>
+              </View>
+          </TouchableOpacity>
+      )
+  });
+
+  if (facts.length < 1) {
+    return (
+        <View style={styles.container}>
+          <StatusBar barStyle="dark-content"/>
+          <ActionBar
+              style={[styles.actionBar, styles.title]}
+              name={'Catchimal'}
+              backArrow={true}
+              data={props}
           />
+          <View style={{alignSelf: 'center', justifyContent: 'center'}}>
+            <ActivityIndicator size={"large"} color={'AD9A89'}/>
+          </View>
         </View>
-      </View>
-
-      <View>
-        <Card style={styles.walls} theme={isEnabled}>
-          <Text style={styles.picDescription}>
-            {details}
-          </Text>
-        </Card>
-      </View>
-
-      <View style={styles.list}>
-        <FlatList
-          data={data}
-          renderItem={({ item }) => (
-            <View>
-              <Card style={styles.walls} theme={isEnabled}>
-                <TouchableOpacity
-                  activeOpacity={0.5}
-                  onPress={() => handleTouch(item)}
-                >
-                  <Image
-                    source={{
-                      uri: item.url,
-                    }}
-                    style={{ width: 300, height: 300 }}
-                    resizeMode="cover"
-                  />
-                </TouchableOpacity>
-                  <Text style={styles.picDescription}>{item.title}</Text>
-              </Card>
-            </View>
-          )}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
-    </View>
-  );
-}
+    );
+  } else {
+      return (
+          <View style={styles.container}>
+              <StatusBar barStyle="dark-content"/>
+              <ActionBar
+                  style={[styles.actionBar, styles.title]}
+                  name={'Catchimal'}
+                  backArrow={true}
+                  data={props}
+              />
+              <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+                  {catFacts}
+              </ScrollView>
+          </View>
+      );
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#FFBBBB",
   },
-  topBar: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    marginVertical: 10,
+  actionBar: {
+    backgroundColor: '#FFBBBB'
   },
-  contentContainer: {
-    paddingTop: 30,
+  title: {
+    textAlign: 'center',
+    fontSize: 24,
+    color: '#AD9A89',
+    letterSpacing: 3
   },
-  load: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  titleBar: {
-    padding: 5,
-    height: 50,
-    width: "80%",
-    marginLeft: 30,
-    borderColor: "black",
-    borderWidth: 2,
-    alignItems: "center",
-    borderRadius: 20,
-    borderTopWidth: 5,
-    borderBottomWidth: 5,
-  },
-  textStyle: {
-    fontSize: 20,
-  },
-  picDescription:{
-    color:'cyan',
-    fontWeight:'bold',
-    fontSize:24
-  },
-  walls: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  list: {
-    alignItems: "center",
-    marginBottom: 50,
-  },
+    scrollViewContainer: {
+        borderRadius: 15,
+        height: 'auto',
+    },
+    factView: {
+        padding: 5,
+        borderRadius: 5,
+    },
+    factTextView: {
+        fontSize: 24,
+        color: '#FFFFFF'
+    },
+    factsContainer: {
+      backgroundColor: '#FFBBBB'
+    }
 });
 
-export default AnimalList;
+export default animalList;

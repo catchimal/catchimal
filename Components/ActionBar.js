@@ -33,7 +33,7 @@ const ActionBar = props => {
         <View style={[styles.container, style]} {...rest}>
             <View style={styles.titleContainer}>
                 <Text style={[styles.title, style]} {...rest}>
-                    {props.name}
+                    {'Catchimal'}
                 </Text>
             </View>
         </View>
@@ -67,12 +67,12 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     icon: {
-        color: '#FFFFFF',
+        color: '#AD9A89',
     },
     title: {
         textAlign: 'center',
         fontSize: 24,
-        color: '#FFFFFF',
+        color: '#AD9A89',
     },
     error: {
         textAlign: 'center',

@@ -16,7 +16,6 @@ import * as ImagePicker from 'expo-image-picker';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import { FontAwesome, Ionicons,MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
-import AnimalList from "../Components/AnimalList";
 import ActionBar from "../Components/ActionBar";
 
 class Home extends Component {
@@ -98,9 +97,9 @@ class Home extends Component {
         this.setState({launchCamera: false});
     };
 
-    details = () => {
-        return this.props.navigation.navigate('AnimalList')
-    }
+    catsDetails = () => {
+        return this.props.navigation.navigate({routeName: 'AnimalList'});
+    };
 
     logout = async () => {
         try {
@@ -163,10 +162,6 @@ class Home extends Component {
         } catch (error) {
             console.log(error);
         }
-    };
-
-    uploadPhotoToCloud = () => {
-
     };
 
     render() {
@@ -245,8 +240,8 @@ class Home extends Component {
                             </View>)}
                             <View style={styles.logoutButton}>
                                 <RaisedTextButton
-                                    title={'View Details'}
-                                    onPress={this.details}
+                                    title={'About Cats'}
+                                    onPress={this.catsDetails}
                                 />
                             </View>
                             <View style={styles.logoutButton}>

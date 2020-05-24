@@ -12,7 +12,7 @@ const AppNavigator = createStackNavigator({
         screen: Home
     },
     AnimalList: {
-        screen:AnimalList
+        screen: AnimalList
     }
 }, {
     headerMode: 'none',

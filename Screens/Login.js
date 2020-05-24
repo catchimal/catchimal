@@ -2,10 +2,11 @@ import React, {useState, Component} from 'react'
 import {
     View,
     StyleSheet,
-    Button
+    Button, StatusBar
 } from 'react-native';
 import * as Google from "expo-google-app-auth";
 import googleCloudConfig from "../GoogleCloudConfig";
+import ActionBar from "../Components/ActionBar";
 
 class Login extends Component {
     constructor(props) {
@@ -38,6 +39,11 @@ class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <StatusBar barStyle="dark-content"/>
+                <ActionBar
+                    style={[styles.actionBar, styles.title]}
+                    name={'Catchimal'}
+                />
                 <Button title="Login with Google" onPress={this.signInWithGoogle} />
             </View>
         );
@@ -50,7 +56,16 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center"
-    }
+    },
+    actionBar: {
+        backgroundColor: '#FFFFFF'
+    },
+    title: {
+        textAlign: 'center',
+        fontSize: 24,
+        color: '#AD9A89',
+        letterSpacing: 3
+    },
 });
 
 export default Login;

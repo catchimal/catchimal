@@ -52,7 +52,7 @@ function AnimalList(props) {
 
   const toggleSwitch = () => {
     setIsEnabled(!isEnabled)
-  }
+  };
 
   return (
     <View style={styles.container}>

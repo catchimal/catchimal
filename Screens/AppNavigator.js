@@ -5,7 +5,7 @@ import Home from "./Home";
 
 const AppNavigator = createStackNavigator({
     Login: {
-        screen: Home,
+        screen: Login,
     },
     Home: {
         screen: Home

@@ -9,10 +9,13 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",
+    "clarifai": "^2.9.1",
     "eslint": "^6.8.0",
     "expo": "~37.0.3",
+    "expo-camera": "~8.2.0",
     "expo-constants": "~8.0.0",
     "expo-google-app-auth": "^8.1.0",
+    "expo-image-picker": "~8.1.0",
     "expo-linear-gradient": "~8.0.0",
     "expo-location": "~8.0.0",
     "expo-permissions": "~8.1.0",
@@ -36,8 +39,7 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "expo-image-picker": "~8.1.0",
-    "expo-camera": "~8.2.0"
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.1.0",

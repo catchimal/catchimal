@@ -9,8 +9,7 @@ expo start
 # Links
 ## Web - https://catchimal.space
 ## Mobile - https://expo.io/@iamrutvik/catchimal
-
-## Submission for MLH Backyard Hacks
+## Submission for MLH Backyard Hacks - https://devpost.com/software/catchimal
 
 ## Main objective of Catchimal
 

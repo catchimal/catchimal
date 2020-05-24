@@ -13,9 +13,32 @@ import {
 import Card from "./Card";
 
 function AnimalList(props) {
-  let { title } = props;
 
+  let { title,keyword } = props;
+  const key = "AIzaSyA82k47jl8BCHoJ07am-8UHSUxq2zFlmT0";
   const [isEnabled, setIsEnabled] = useState(false);
+  const [details,setDetails] = useState("Its an animal !");
+ 
+
+   useEffect(async () => {
+    let response = await fetch(
+      'https://customsearch.googleapis.com/customsearch/v1?q=' +
+      keyword +
+      '&key='+
+      key,
+      {
+          headers: {
+              Accept: 'application/json',
+          },
+          method: 'GET',
+      }
+  );
+    let responseJson = await response.json();
+    console.log(responseJson);
+
+    let result = "lol"
+    setDetails(result);
+  },[])
 
   let data = [
     {
@@ -69,6 +92,14 @@ function AnimalList(props) {
             value={isEnabled}
           />
         </View>
+      </View>
+
+      <View>
+        <Card style={styles.walls} theme={isEnabled}>
+          <Text style={styles.picDescription}>
+            {details}
+          </Text>
+        </Card>
       </View>
 
       <View style={styles.list}>
@@ -136,6 +167,7 @@ const styles = StyleSheet.create({
   picDescription:{
     color:'cyan',
     fontWeight:'bold',
+    fontSize:24
   },
   walls: {
     justifyContent: "center",

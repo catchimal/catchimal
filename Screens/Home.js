@@ -98,6 +98,10 @@ class Home extends Component {
         this.setState({launchCamera: false});
     };
 
+    details = () => {
+        return this.props.navigation.navigate('AnimalList')
+    }
+
     logout = async () => {
         try {
             const result = await Google.logOutAsync({
@@ -241,12 +245,17 @@ class Home extends Component {
                             </View>)}
                             <View style={styles.logoutButton}>
                                 <RaisedTextButton
+                                    title={'View Details'}
+                                    onPress={this.details}
+                                />
+                            </View>
+                            <View style={styles.logoutButton}>
+                                <RaisedTextButton
                                     title={'Sign out'}
                                     onPress={this.logout}
                                 />
                             </View>
                         </View>
-                         {/*<AnimalList title="tiger"/>*/}
                     </ScrollView>
                 </View>
             );

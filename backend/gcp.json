@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "helical-zone-277505",
+  "private_key_id": "d583c81c6edb1e2f9c5c35e460a134be8e105848",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCxRKsKhIymfsLq\nS822KV9BG6+oVk6tXzt3G8WDtwiZZ9O3Xlqe+R28gKCBCkcz9EWnlLYLc/WmEsHa\nAndOVr7af4nQud4+w1rMIW9Uc4wzgq3bjkqk32q0QbO2rq9v9TMXfbKVBRP6w/B8\n/qFt3xnAgoiT2HCC3RtbEFAxntqh8cLhc3xNGAOyfFwMFnU2h/GlL8QTIqNDISlX\nFxK44gfMsVang7jukjGkZF7kiG6xBG0veTO1nht354ajuxjvFvySm5TDPveb/f9Z\nE3sy9aRheJmBLHLtTRhPDtvjtqCz9SYKk/xnoc4H0Jw85blMWWte1ITAJJ23JCGq\nwzm+ssv7AgMBAAECggEASxedpPz1X+o+w2WNJOdttHT3+kVlWsgGtrQK/Xrhp6p1\n4y2TEdjRofKTC1bBRt7pSs4SN9PNcaZse9+jjonsmz5/sO2rmcbDhcl8EbhI4eEv\nqNwj/qet2eIjMPXa14B1PjQ/HCVki0vJagmrdJGXpRcmqAp9ztG/LtpAPmTelM7R\nQP9KyQeT8fRL6X8Yls3voURMMZgo03LzwZj41QJ986T9+VL0SshIfVJw3r/7kEvU\nRaDYQ5Sd6k4JbwHgahlTO9laVH/j7ZztOyRI+59VHvIqp48+yPhTEIFfL2t6sKYw\nmf/DA5xqqiUYD118QFVvn/6Oj24IMYGY5tL60qk3QQKBgQDwgTZJzesOLz5oX9Gf\nCO3OmEgrqsFgAncTjPykjqpnqU9GaCn9ddFASBH8rValdPpnktDTb9e7QKpC8VXs\nzjpntmCv+YfOkux2wrfdxPVjMHg7Fl81L+R1JdL4bVplIiUgT/8w45ghkiB6Lv2s\nE+3HpVN5Iveg7KygsWzN6rEJSwKBgQC8sHVy5RqU0rVZg6F9p7kr7bgXriUB2/O7\nthrZvXMmI9XeBpN19uUYxp2b1l0WC3xXcjrPcJvQtNVAVKiRBwH4dQ60MYH331NF\n74Nk7Dyg4wiBcSWYjHPCAfdEVVeVjJqLzcuBJJ8lu3VH/HuFbhwBXMFUqiwWVoVZ\nsAejYVTKEQKBgEpYdxK7j/Tzj8QuEpup4/FgS7cL8vkd6fdmNtcbrvuacAIgwxIx\n8HyBiuXkI4vELIAF933U7ghZhghpmBk66v0SeLMNXPjznBteN/5bG0wNOK1zTf0g\nD+xSw/O9whrPQlDJyeYwBOAjztxWWF5wTqnPpo0kzQ22++o0zqCc8xsfAoGAF+n9\nWKx0q/vwhAHMy9IgA9NDC61Ef3HS+C1iRcpe96x/BH6s3byG2JcDjqaicZLPFX4i\nufu5o7/nbxnLq2XJ+CVN0cSchj/FnA15B6dxH6rmfxFKBIV4flQldIGkcg254JIa\ngqmTigKyIId9WDHWVs3cqtBOeh5JFE7dCPXi+yECgYBR63rAQP/jmV+yFtBfYFxq\n2w0UYFlwucedthe1Iw0NqJU0EZba4OOVM0LhPP7TmNKglLJyj5MafY+CFS64GRjF\nuDgCTyqz1juar+07JtvL+1kBOce6zirAYx64qAEOr7n5xbByJp0EP6e3Fz8YUWUX\n417Vb+QqxXSTKSWYCMJV2w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "deployments@helical-zone-277505.iam.gserviceaccount.com",
+  "client_id": "102206742719451891974",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/deployments%40helical-zone-277505.iam.gserviceaccount.com"
+}

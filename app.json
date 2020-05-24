@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "Catchimal",
+    "slug": "catchimal",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/appIcon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.368121245271-ej36qarfbf23sdei26ukh39hsoknv53g\n"
+        }
+      }
+    },
+    "description": "Know and share the wonderful animals of our world.",
+    "githubUrl": "https://github.com/Catchimal/catchimal"
+  }
+}

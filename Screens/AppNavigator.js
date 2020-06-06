@@ -2,6 +2,7 @@ import Login from "./Login";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import Home from "./Home";
+import TakePic from "./TakePic"
 import AnimalList from "../Components/AnimalList";
 
 const AppNavigator = createStackNavigator({
@@ -10,6 +11,9 @@ const AppNavigator = createStackNavigator({
     },
     Home: {
         screen: Home
+    },
+    TakePic: {
+        screen: TakePic
     },
     AnimalList: {
         screen: AnimalList

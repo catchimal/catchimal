@@ -5,6 +5,7 @@ import {
     Button, StatusBar
 } from 'react-native';
 import * as Google from "expo-google-app-auth";
+import { Icon } from 'react-native-elements'
 import googleCloudConfig from "../GoogleCloudConfig";
 import ActionBar from "../Components/ActionBar";
 
@@ -39,12 +40,15 @@ class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Icon name="mood" size={80} color="gray"/>
                 <StatusBar barStyle="dark-content"/>
                 <ActionBar
                     style={[styles.actionBar, styles.title]}
                     name={'Catchimal'}
                 />
-                <Button title="Login with Google" onPress={this.signInWithGoogle} />
+                <Button title="Login with Google"  onPress={this.signInWithGoogle} />
+                <Icon name="pets" size={50}/>
+
             </View>
         );
     }
@@ -62,9 +66,10 @@ const styles = StyleSheet.create({
     },
     title: {
         textAlign: 'center',
-        fontSize: 24,
+        fontSize: 40,
         color: '#AD9A89',
-        letterSpacing: 3
+        letterSpacing: 10,
+        marginVertical:20
     },
 });
 

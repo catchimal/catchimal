@@ -1,359 +1,126 @@
-import React, {useState, Component} from 'react'
+import React, { useState, Component } from "react";
 import {
-    View,
-    StyleSheet,
-    Text,
-    Image,
-    ScrollView,
-    TouchableOpacity,
-    StatusBar,
-    ActivityIndicator
-} from 'react-native';
-import {RaisedTextButton} from 'react-native-material-buttons';
-import * as Google from "expo-google-app-auth";
-import googleCloudConfig from "../GoogleCloudConfig";
-import * as ImagePicker from 'expo-image-picker';
-import { Camera } from 'expo-camera';
-import * as Permissions from 'expo-permissions';
-import { FontAwesome, Ionicons,MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  StatusBar,
+  Button,
+  ActivityIndicator,
+} from "react-native";
 import ActionBar from "../Components/ActionBar";
+import AnimalCard from "../Components/AnimalCard";
+import { Icon } from "react-native-elements";
+import { FlatList, TouchableHighlight } from "react-native-gesture-handler";
 
-class Home extends Component {
-    constructor(props) {
-        super(props);
+function Home(props) {
+  const [userName, setUserName] = useState(
+    props.navigation.getParam("username")
+  );
+  const [userRating, setUserRating] = useState(1500);
+  const [userFriends, setUserFriends] = useState(0);
+  const [userLikes, setUserLikes] = useState(0);
 
-        this.state = {
-            selectedImage: '',
-            hasPermission: null,
-            type: Camera.Constants.Type.back,
-            launchCamera: false,
-            error: null,
-            identifiedImage: ''
-        }
+  const DATA = [
+    {
+      name: "Dogoo",
+      url:
+        "https://specials-images.forbesimg.com/imageserve/5db4c7b464b49a0007e9dfac/960x0.jpg?fit=scale",
+    },
+    {
+      name: "Rabbitu",
+      url:
+        "https://media.newyorker.com/photos/5a8862150095ae7e55570156/1:1/w_1362,h_1362,c_limit/Mead-Peter-Rabbit.jpg",
+    },
+    {
+      name: "Racooon",
+      url:
+        "https://c4.wallpaperflare.com/wallpaper/666/775/773/rocket-raccoon-guardians-of-the-galaxy-2-wallpaper-preview.jpg",
+    },
+    {
+        name:"Catie",
+        url:"https://cdn.pixabay.com/photo/2014/11/30/14/11/kitty-551554__340.jpg"
+    },
+    {
+        name:"Hedgehog",
+        url:"https://cdn.pixabay.com/photo/2016/02/22/10/06/hedgehog-1215140__340.jpg"
     }
+  ];
+  return (
+    <View style={styles.container}>
+      <View>
+        <Text style={styles.title}>Sup {userName}</Text>
+      </View>
+      <View style={styles.descp}>
+        <Text style={styles.text}>Rating : {userRating}</Text>
+        <Text style={styles.text}>Friends : {userFriends}</Text>
+        <Text style={styles.text}>Total Likes : {userLikes}</Text>
+      </View>
+      <View>
+        <Text style={styles.header}>
+          Your Cute <Text style={{ fontWeight: "bold" }}>Collection</Text>
+        </Text>
+      </View>
 
-    async componentDidMount() {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        if (status === 'granted') {
-            this.setState({ hasPermission: status === 'granted' });
+      <FlatList
+        data={DATA}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item) => item.name}
+        renderItem={({ item }) => (
+            <AnimalCard name={item.name} url={item.url} />
+        )}
+      />
+
+      <Icon
+        name="add"
+        raised
+        reverse
+        color="#FC9F57"
+        onPress={() =>
+          props.navigation.navigate("TakePic", {
+            username: userName,
+            token: props.navigation.getParam("token"),
+          })
         }
-    }
-
-    handleCameraType=()=>{
-        const { cameraType } = this.state;
-
-        this.setState({cameraType:
-                cameraType === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-        })
-    };
-
-    takePicture = async () => {
-        if (this.camera) {
-            let photo = await this.camera.takePictureAsync({
-                base64: true
-            });
-            this.setState({selectedImage: photo.uri, base64Image: photo.base64});
-            this.setState({launchCamera: false});
-            this.setState({identifiedImage: ''});
-        }
-    };
-
-    launchCamera = () => {
-        this.setState({identifiedImage: ''});
-        this.setState({selectedImage: ''});
-        this.setState({launchCamera: true});
-    };
-
-    closeCamera = () => {
-        this.setState({launchCamera: false});
-    };
-
-    openImagePickerAsync = async () => {
-        this.setState({identifiedImage: ''});
-        let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
-
-        if (permissionResult.granted === false) {
-            alert("Permission to access camera roll is required!");
-            return;
-        }
-
-        let pickerResult = await ImagePicker.launchImageLibraryAsync({
-            base64: true,
-            allowsEditing: false,
-            aspect: [4, 3]
-        });
-
-        if (pickerResult.cancelled === true) {
-            return;
-        }
-
-        this.setState({
-            selectedImage: pickerResult.uri,
-            base64Image: pickerResult.base64
-        });
-
-        this.setState({launchCamera: false});
-    };
-
-    catsDetails = () => {
-        return this.props.navigation.navigate({routeName: 'AnimalList'});
-    };
-
-    logout = async () => {
-        try {
-            const result = await Google.logOutAsync({
-                accessToken: this.props.navigation.getParam('token'),
-                androidClientId: googleCloudConfig.ANDROID_CLIENT_ID,
-                iosClientId: googleCloudConfig.IOS_CLIENT_ID
-            });
-            if (result.type === "default" && result.status === 200) {
-                return this.props.navigation.navigate('Login'); //after Google logout redirect to Login
-            } else {
-                return { cancelled: true };
-            }
-        } catch (e) {
-            console.log('Error with logout', e);
-            return { error: true };
-        }
-    };
-
-    submitToGoogle = async () => {
-        try {
-            this.setState({ uploading: true, loading: true });
-            let body = JSON.stringify({
-                requests: [
-                    {
-                        features: [
-                            { type: 'OBJECT_LOCALIZATION', maxResults: 1 },
-                        ],
-                        image: {
-                            content: this.state.base64Image
-                        }
-                    }
-                ]
-            });
-
-            console.log(this.state.selectedImage);
-            let response = await fetch(
-                'https://vision.googleapis.com/v1/images:annotate?key=' +
-                googleCloudConfig.API_KEY,
-                {
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    method: 'POST',
-                    body: body
-                }
-            );
-            let responseJson = await response.json();
-            console.log(responseJson);
-
-            let result = responseJson.responses[0].localizedObjectAnnotations[0].name;
-
-            this.setState({
-                googleResponse: responseJson,
-                uploading: false,
-                identifiedImage: result,
-                loading: false
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    render() {
-        if (!this.state.launchCamera) {
-            return (
-                <View style={styles.container}>
-                    <StatusBar barStyle="dark-content"/>
-                    <ActionBar
-                        style={[styles.actionBar, styles.title]}
-                        name={'Catchimal'}
-                        error={this.state.error}
-                    />
-                    <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps={"handled"}
-                                keyboardDismissMode={"on-drag"}>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', padding: 10, margin: 5 }}>
-                            Welcome, {this.props.navigation.getParam('username')}
-                        </Text>
-                        {this.state.selectedImage !== '' && (
-                            <View style={styles.imageContainer}>
-                                <Image
-                                    source={{ uri: this.state.selectedImage }}
-                                    style={styles.thumbnail}
-                                />
-                                {this.state.loading && (
-                                    <View style={{padding: 10, margin: 5}}>
-                                        <ActivityIndicator color={'#AD9A89'} size={24}/>
-                                    </View>
-                                )}
-                                {!this.state.loading && (
-                                    <Text style={{ fontSize: 20, fontWeight: 'bold', padding: 10, margin: 5 }}>
-                                        {this.state.identifiedImage}
-                                    </Text>
-                                )}
-                            </View>
-                        )}
-                        <View style={styles.buttonsContainer}>
-                            {this.state.selectedImage === '' && (
-                                <View style={styles.selectFileButton}>
-                                    <RaisedTextButton
-                                        title={'Select photo'}
-                                        onPress={this.openImagePickerAsync}
-                                        titleColor={'#FFFFFF'}
-                                        color={'#F7B801'}
-                                        titleStyle={{fontSize: 20}}
-                                    />
-                                </View>
-                            )}
-                            {this.state.selectedImage === '' && (
-                                <View style={styles.selectFileButton}>
-                                    <RaisedTextButton
-                                        title={'Camera'}
-                                        onPress={this.launchCamera}
-                                        titleColor={'#FFFFFF'}
-                                        color={'#F7B801'}
-                                        titleStyle={{fontSize: 20}}
-                                    />
-                                </View>
-                            )}
-                            {this.state.selectedImage !== '' && (<View style={styles.selectFileButton}>
-                                <RaisedTextButton
-                                    title={'Retake Photo'}
-                                    onPress={this.launchCamera}
-                                    titleColor={'#FFFFFF'}
-                                    color={'#F7B801'}
-                                    titleStyle={{fontSize: 20}}
-                                />
-                            </View>)}
-                            {this.state.selectedImage !== '' && (<View style={styles.selectFileButton}>
-                                <RaisedTextButton
-                                    title={'Analyze Photo'}
-                                    onPress={this.submitToGoogle}
-                                    titleColor={'#FFFFFF'}
-                                    color={'#F7B801'}
-                                    titleStyle={{fontSize: 20}}
-                                />
-                            </View>)}
-                            <View style={styles.logoutButton}>
-                                <RaisedTextButton
-                                    title={'About Cats'}
-                                    onPress={this.catsDetails}
-                                />
-                            </View>
-                            <View style={styles.logoutButton}>
-                                <RaisedTextButton
-                                    title={'Sign out'}
-                                    onPress={this.logout}
-                                />
-                            </View>
-                        </View>
-                    </ScrollView>
-                </View>
-            );
-        } else {
-            return (
-                <View style={{flex: 1}}>
-                    <Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {
-                        this.camera = ref;
-                    }}>
-                        <View style={{flex:1, flexDirection:"row",justifyContent:"flex-start",marginTop:40, marginLeft:20}}>
-                            <TouchableOpacity
-                                style={{
-                                    alignSelf: 'flex-start',
-                                    alignItems: 'flex-start',
-                                    backgroundColor: 'transparent',
-                                }} onPress={this.closeCamera}>
-                                <AntDesign name="close" size={40} color="#fff" />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{flex:1, flexDirection:"row",justifyContent:"space-between",margin:20}}>
-                            <TouchableOpacity
-                                style={{
-                                    alignSelf: 'flex-end',
-                                    alignItems: 'center',
-                                    backgroundColor: 'transparent',
-                                }} onPress={this.openImagePickerAsync}>
-                                <Ionicons
-                                    name="ios-photos"
-                                    style={{ color: "#fff", fontSize: 40}}
-                                />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={{
-                                    alignSelf: 'flex-end',
-                                    alignItems: 'center',
-                                    backgroundColor: 'transparent',
-                                }} onPress={()=>this.takePicture()}>
-                                <FontAwesome
-                                    name="camera"
-                                    style={{ color: "#fff", fontSize: 40}}
-                                />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={{
-                                    alignSelf: 'flex-end',
-                                    alignItems: 'center',
-                                    backgroundColor: 'transparent',
-                                }} onPress={()=>this.handleCameraType()}>
-                                <MaterialCommunityIcons
-                                    name="camera-switch"
-                                    style={{ color: "#fff", fontSize: 40}}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                    </Camera>
-                </View>
-            );
-        }
-    }
+      />
+    </View>
+  );
 }
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    buttonsContainer: {
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    selectFileButton: {
-        width: '100%',
-        margin: 5,
-        padding: 10
-    },
-    logoutButton: {
-        width: '100%',
-        margin: 5,
-        padding: 10
-    },
-    imageContainer: {
-        width: 350,
-        height: 350,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    thumbnail: {
-        width: 300,
-        height: 300,
-        resizeMode: "contain"
-    },
-    actionBar: {
-        backgroundColor: '#FFFFFF'
-    },
-    title: {
-        textAlign: 'center',
-        fontSize: 24,
-        color: '#AD9A89',
-        letterSpacing: 3
-    },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  actionBar: {
+    backgroundColor: "#FFFFFF",
+  },
+  title: {
+    textAlign: "center",
+    fontSize: 32,
+    color: "#112820",
+    letterSpacing: 5,
+    marginVertical: 20,
+    fontWeight: "bold",
+  },
+  header: {
+    textAlign: "center",
+    fontSize: 28,
+    color: "#4A693B",
+    letterSpacing: 2,
+    marginVertical: 20,
+  },
+  descp: {
+    alignSelf: "flex-start",
+    marginHorizontal: 40,
+  },
+  text: {
+    fontSize: 20,
+    color: "gray",
+  },
 });
-
 export default Home;
